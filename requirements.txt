@@ -5,3 +5,5 @@ numpy==1.13.3
 scipy==1.0.0
 Keras==2.1.2
 tensorflow==1.4.1
+ipython
+jupyter
