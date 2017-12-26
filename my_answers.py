@@ -35,18 +35,23 @@ def cleaned_text(text):
     cleaned_text = np.zeros(len(text), dtype=np.uint8)
     cleaned_text_length = 0
     
-    allowed_characters = set(ascii_lowercase + punctuation)
+    allowed_characters = set(list(ascii_lowercase + ' ') + punctuation)
+    space_code = ord(' ')
 
     for i in range(len(text)):
-        cleaned_text[i] = ord(text[i]) if text[i] in allowed_characters else ' '
+        cleaned_text[i] = ord(text[i]) if text[i] in allowed_characters else space_code
 
-    return cleaned_text.tostring()
+    return cleaned_text.tobytes().decode('utf8')
 
 ### TODO: fill out the function below that transforms the input text and window-size into a set of input/output pairs for use with our RNN model
 def window_transform_text(text, window_size, step_size):
     # containers for input/output pairs
     inputs = []
     outputs = []
+
+    for i in range(0, len(text)-window_size, step_size):
+        inputs.append(text[i:i+window_size])
+        outputs.append(text[i+window_size])
 
     return inputs,outputs
 
